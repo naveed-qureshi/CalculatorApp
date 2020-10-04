@@ -9,8 +9,9 @@ import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
     Button b0,b1,b2,b3,b4,b5,b6,b7,b8,b9,bAdd,bSub,bDiv,bMul,bClear,bE;
+    Boolean plus= false, minus=false, mul=false,div=false;
     EditText et;
-    float num1=0,num2=0,calculated_result;
+    int num1=0,num2=0,calculated_result=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +27,9 @@ public class MainActivity extends AppCompatActivity {
         b8 = (Button) findViewById(R.id.btn8);
         b9 = (Button) findViewById(R.id.btn9);
         bAdd = (Button) findViewById(R.id.btnAdd);
+        bDiv = (Button) findViewById(R.id.btnDiv);
+        bSub = (Button) findViewById(R.id.btnDiv);
+        bMul = (Button) findViewById(R.id.btnMul);
         bE = (Button) findViewById(R.id.btnEqual);
         bClear = (Button) findViewById(R.id.btnC);
         et = (EditText)findViewById(R.id.inputField);
@@ -93,28 +97,84 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //num1 = Float.parseFloat(et.getText().toString());
+
                 et.setText("");
             }
         });
         bE.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                num2 = Float.parseFloat(et.getText().toString());
-                calculated_result = num1+num2;
-                et.setText(Float.toString(calculated_result));
+                num2 = Integer.parseInt(et.getText().toString());
+                if(plus){
+                    calculated_result = num1+num2;
+                }
+                else if(minus){
+                    calculated_result = num1-num2;
+                }
+                else if(mul){
+                    calculated_result = num1*num2;
+                }
+                else if(div){
+                    if(num2==0)
+                    {
+                        et.setText("Zero division error!");
+                        return;
+                    }
+                    calculated_result = num1*num2;
+                }
+
+                et.setText(Integer.toString(calculated_result));
             }
         });
         bAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                num1 = Float.parseFloat(et.getText().toString());
+                num1 = Integer.parseInt(et.getText().toString());
+                plus = true;
+                minus = false;
+                mul = false;
+                div = false;
+                et.setText("");
+            }
+        });
+        bDiv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               // num1 = Float.parseFloat(et.getText().toString());
+                plus = false;
+                minus = false;
+                mul = false;
+                div = true;
                 et.setText("");
             }
         });
 
 
+        bSub.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                num1 = Integer.parseInt(et.getText().toString());
+                plus = false;
+                minus = true;
+                mul = false;
+                div = false;
+                et.setText("");
+            }
+
+        });
 
 
+        bMul.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                num1 = Integer.parseInt(et.getText().toString());
+                plus = false;
+                minus = false;
+                mul = true;
+                div = false;
+                et.setText("");
+            }
+        });
 
     }
 }
