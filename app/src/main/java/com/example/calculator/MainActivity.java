@@ -9,7 +9,7 @@ import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
     Button b0,b1,b2,b3,b4,b5,b6,b7,b8,b9,bAdd,bSub,bDiv,bMul,bClear,bE;
-    Boolean plus= false, minus=false, mul=false,div=false;
+    Boolean plus= false, minus=false, mul=false,divide=false;
     EditText et;
     int num1=0,num2=0,calculated_result=0;
     @Override
@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         b9 = (Button) findViewById(R.id.btn9);
         bAdd = (Button) findViewById(R.id.btnAdd);
         bDiv = (Button) findViewById(R.id.btnDiv);
-        bSub = (Button) findViewById(R.id.btnDiv);
+        bSub = (Button) findViewById(R.id.btnSub);
         bMul = (Button) findViewById(R.id.btnMul);
         bE = (Button) findViewById(R.id.btnEqual);
         bClear = (Button) findViewById(R.id.btnC);
@@ -96,7 +96,11 @@ public class MainActivity extends AppCompatActivity {
         bClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //num1 = Float.parseFloat(et.getText().toString());
+
+            plus = false;
+            minus = false;
+            divide = false;
+            mul = false;
 
                 et.setText("");
             }
@@ -106,21 +110,24 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 num2 = Integer.parseInt(et.getText().toString());
                 if(plus){
+
                     calculated_result = num1+num2;
                 }
                 else if(minus){
                     calculated_result = num1-num2;
                 }
                 else if(mul){
+                    et.setText(("Hello"));
                     calculated_result = num1*num2;
                 }
-                else if(div){
+                else if(divide){
+
                     if(num2==0)
                     {
                         et.setText("Zero division error!");
                         return;
                     }
-                    calculated_result = num1*num2;
+                    calculated_result = num1/num2;
                 }
 
                 et.setText(Integer.toString(calculated_result));
@@ -133,18 +140,18 @@ public class MainActivity extends AppCompatActivity {
                 plus = true;
                 minus = false;
                 mul = false;
-                div = false;
+                divide = false;
                 et.setText("");
             }
         });
         bDiv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // num1 = Float.parseFloat(et.getText().toString());
+                num1 = Integer.parseInt(et.getText().toString());
                 plus = false;
                 minus = false;
                 mul = false;
-                div = true;
+                divide = true;
                 et.setText("");
             }
         });
@@ -157,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
                 plus = false;
                 minus = true;
                 mul = false;
-                div = false;
+                divide = false;
                 et.setText("");
             }
 
@@ -171,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
                 plus = false;
                 minus = false;
                 mul = true;
-                div = false;
+                divide = false;
                 et.setText("");
             }
         });
